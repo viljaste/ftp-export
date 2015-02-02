@@ -86,7 +86,11 @@ for FILE in $(find "${SOURCE}" -type f); do
   wget -q "ftp://${USERNAME}:${PASSWORD}@${HOSTNAME}/${REMOTE_DIRECTORY}${RELATIVE_PATH}" -O "${RELATIVE_PATH}"
 
   if [ "${?}" -ne 0 ]; then
-    echo 1
+    rm -rf "${RELATIVE_PATH}"
+
+    if [ ! "$(ls -A ${DIRECTORY})" ]; then
+      rm -rf "${DIRECTORY}"
+    fi
   else
     echo "ftp-export: Exporting file: ${RELATIVE_PATH}"
   fi
