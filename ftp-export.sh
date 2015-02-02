@@ -96,7 +96,7 @@ for FILE in $(find "${SOURCE}" -type f); do
   if [ "${?}" -ne 0 ]; then
     rm -rf "${RELATIVE_PATH}"
 
-    if [ ! "$(ls -A ${DIRECTORY})" ]; then
+    if [ "${DIRECTORY}" != "." ] && [ ! "$(ls -A ${DIRECTORY})" ]; then
       rm -rf "${DIRECTORY}"
     fi
   else
