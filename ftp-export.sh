@@ -77,19 +77,19 @@ for FILE in $(find "${SOURCE}" -type f); do
     RELATIVE_PATH="$(echo ${RELATIVE_PATH} | cut -c 2-)"
   fi
 
-  URL="ftp://${USERNAME}:${PASSWORD}@${HOSTNAME}/${REMOTE_DIRECTORY}${RELATIVE_PATH}"
-
-  #echo $(wget -S --spider "${URL}" -O /dev/null)
-
   DIRECTORY="$(dirname RELATIVE_PATH)"
 
   if [ ! -d "${DIRECTORY}" ]; then
     mkdir -p "${DIRECTORY}"
   fi
 
-  echo "ftp-export: Exporting file: ${RELATIVE_PATH}"
+  wget -q "ftp://${USERNAME}:${PASSWORD}@${HOSTNAME}/${REMOTE_DIRECTORY}${RELATIVE_PATH}" -O "${RELATIVE_PATH}"
 
-  wget -q "${URL}" -O "${RELATIVE_PATH}"
+  if [ "${?}" -ne 0 ]; then
+    echo 1
+  else
+    echo "ftp-export: Exporting file: ${RELATIVE_PATH}"
+  fi
 done
 
 cd "${WORKING_DIR}"
