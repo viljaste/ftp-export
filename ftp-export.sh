@@ -77,7 +77,7 @@ for FILE in $(find "${SOURCE}" -type f); do
     RELATIVE_PATH="$(echo ${RELATIVE_PATH} | cut -c 2-)"
   fi
 
-  DIRECTORY="$(dirname RELATIVE_PATH)"
+  DIRECTORY="$(dirname ${RELATIVE_PATH})"
 
   if [ ! -d "${DIRECTORY}" ]; then
     mkdir -p "${DIRECTORY}"
