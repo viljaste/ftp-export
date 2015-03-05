@@ -2,6 +2,14 @@
 
 WORKING_DIR="$(pwd)"
 
+hash wget 2> /dev/null
+
+if [ "${?}" -ne 0 ]; then
+  echo "ftp-export: wget command not found."
+
+  exit 1
+fi
+
 help() {
   cat << EOF
 ftp-export: Usage: ftp-export <SOURCE> <HOSTNAME> <USERNAME> <PASSWORD> <DESTINATION> [REMOTE_DIRECTORY]
